@@ -1,0 +1,30 @@
+--- gpac-0.6.1/Makefile.old	2016-07-01 08:51:59.658291331 +0200
++++ gpac-0.6.1/Makefile	2016-07-01 08:55:11.264421831 +0200
+@@ -107,9 +107,11 @@
+ endif
+ 	$(INSTALL) -d "$(DESTDIR)$(mandir)"
+ 	$(INSTALL) -d "$(DESTDIR)$(mandir)/man1"
+-	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/mp4box.1 $(DESTDIR)$(mandir)/man1/ 
+-	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/mp4client.1 $(DESTDIR)$(mandir)/man1/ 
+-	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/gpac.1 $(DESTDIR)$(mandir)/man1/
++	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/dashcast.1 $(DESTDIR)$(mandir)/man1/DashCast.1
++	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/mp4box.1 $(DESTDIR)$(mandir)/man1/MP4Box.1
++	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/mp4client.1 $(DESTDIR)$(mandir)/man1/MP4Client.1
++	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/mp42ts.1 $(DESTDIR)$(mandir)/man1/MP42TS.1
++	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/man/gpac.1 $(DESTDIR)$(mandir)/man1/gpac.1
+ 	$(INSTALL) -d "$(DESTDIR)$(prefix)/share/gpac"
+ 	$(INSTALL) $(INSTFLAGS) -m 644 $(SRC_PATH)/doc/gpac.mp4 $(DESTDIR)$(prefix)/share/gpac/  
+ 	$(INSTALL) -d "$(DESTDIR)$(prefix)/share/gpac/gui"
+@@ -172,8 +174,10 @@
+ 	rm -rf $(DESTDIR)$(prefix)/bin/MP4Client
+ 	rm -rf $(DESTDIR)$(prefix)/bin/MP42TS
+ 	rm -rf $(DESTDIR)$(prefix)/bin/DashCast
+-	rm -rf $(DESTDIR)$(mandir)/man1/mp4box.1
+-	rm -rf $(DESTDIR)$(mandir)/man1/mp4client.1
++	rm -rf $(DESTDIR)$(mandir)/man1/MP4Box.1
++	rm -rf $(DESTDIR)$(mandir)/man1/MP4Client.1
++	rm -rf $(DESTDIR)$(mandir)/man1/MP42TS.1
++	rm -rf $(DESTDIR)$(mandir)/man1/DashCast.1
+ 	rm -rf $(DESTDIR)$(mandir)/man1/gpac.1
+ 	rm -rf $(DESTDIR)$(prefix)/share/gpac
+ 	rm -rf $(DESTDIR)$(prefix)/include/gpac

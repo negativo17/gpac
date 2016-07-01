@@ -7,7 +7,7 @@
 
 Name:       gpac
 Version:    0.6.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -18,7 +18,8 @@ Source1:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.073/26073-%{ver_n
 Source2:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-%{ver_nb}.zip
 Source3:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.204/26204-%{ver_wb}.zip
 
-Patch0:     gpac-0.6.1-manpages.patch
+Patch0:     %{name}-0.6.1-manpages.patch
+Patch1:     %{name}-0.6.1-gf_isom_set_pixel_aspect_ratio.patch
 
 BuildRequires:  a52dec-devel
 BuildRequires:  doxygen
@@ -77,6 +78,7 @@ This package contains development libraries and files for gpac.
 %prep
 %setup -q -a1 -a2 -a3
 %patch0 -p1
+%patch1 -p1
 
 # AMR Narrow Band Fixed
 unzip -q 26073-%{ver_nb_fixed}_ANSI_C_source_code.zip -d 26073-%{ver_nb_fixed}
@@ -153,6 +155,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libgpac.so
 
 %changelog
+* Fri Jul 01 2016 Simone Caronni <negativo17@gmail.com> - 1:0.6.1-2
+- Export gf_isom_set_pixel_aspect_ratio for x264.
+
 * Fri Apr 22 2016 Simone Caronni <negativo17@gmail.com> - 1:0.6.1-1
 - First build.
 - Momentarily disable AMR narrow band fixed-point.

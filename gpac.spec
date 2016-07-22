@@ -7,7 +7,7 @@
 
 Name:       gpac
 Version:    0.6.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -155,6 +155,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libgpac.so
 
 %changelog
+* Fri Jul 22 2016 Simone Caronni <negativo17@gmail.com> - 1:0.6.1-3
+- Rebuild for ffmpeg 3.1.1.
+
 * Fri Jul 01 2016 Simone Caronni <negativo17@gmail.com> - 1:0.6.1-2
 - Export gf_isom_set_pixel_aspect_ratio for x264.
 

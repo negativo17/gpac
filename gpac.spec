@@ -7,7 +7,7 @@
 
 Name:       gpac
 Version:    0.6.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -155,6 +155,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libgpac.so
 
 %changelog
+* Wed Nov 09 2016 Simone Caronni <negativo17@gmail.com> - 1:0.6.1-4
+- Rebuild for FFmpeg update.
+
 * Fri Jul 22 2016 Simone Caronni <negativo17@gmail.com> - 1:0.6.1-3
 - Rebuild for ffmpeg 3.1.1.
 

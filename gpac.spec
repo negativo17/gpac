@@ -127,7 +127,7 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install install-lib INSTFLAGS="-p"
 find %{buildroot} -name "*.a" -delete
-rm -f %{buildroot}%{_mandir}/man1/DashCast.1.gz
+rm -f %{buildroot}%{_mandir}/man1/DashCast.*
 
 %post libs -p /sbin/ldconfig
 

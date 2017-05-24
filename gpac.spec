@@ -6,8 +6,8 @@
 %global ver_wb d10
 
 Name:       gpac
-Version:    0.6.1
-Release:    4%{?dist}
+Version:    0.7.1
+Release:    1%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -19,7 +19,6 @@ Source2:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-%{ver_n
 Source3:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.204/26204-%{ver_wb}.zip
 
 Patch0:     %{name}-0.6.1-manpages.patch
-Patch1:     %{name}-0.6.1-gf_isom_set_pixel_aspect_ratio.patch
 
 BuildRequires:  a52dec-devel
 BuildRequires:  doxygen
@@ -34,7 +33,6 @@ BuildRequires:  libogg-devel
 BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel 
 BuildRequires:  libXv-devel
-BuildRequires:  openssl-devel
 BuildRequires:  libpng-devel >= 1.2.5
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  SDL-devel
@@ -42,6 +40,12 @@ BuildRequires:  wxGTK-devel
 BuildRequires:  xmlrpc-c-devel
 BuildRequires:  xvidcore-devel >= 1.0.0
 BuildRequires:  zlib-devel
+
+%if 0%{?fedora} >= 26 || 0%{?rhel} >= 8
+BuildRequires:      compat-openssl10-devel
+%else
+BuildRequires:      openssl-devel
+%endif
 
 %description
 GPAC is an Open Source multimedia framework. GPAC is used for research and
@@ -78,7 +82,6 @@ This package contains development libraries and files for gpac.
 %prep
 %setup -q -a1 -a2 -a3
 %patch0 -p1
-%patch1 -p1
 
 # AMR Narrow Band Fixed
 unzip -q 26073-%{ver_nb_fixed}_ANSI_C_source_code.zip -d 26073-%{ver_nb_fixed}
@@ -124,19 +127,18 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install install-lib INSTFLAGS="-p"
 find %{buildroot} -name "*.a" -delete
+rm -f %{buildroot}%{_mandir}/man1/DashCast.1.gz
 
 %post libs -p /sbin/ldconfig
 
 %postun libs -p /sbin/ldconfig
 
 %files
-%{_bindir}/DashCast
 %{_bindir}/MP42TS
 %{_bindir}/MP4Box
 %{_bindir}/MP4Client
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1.gz
-%{_mandir}/man1/DashCast.1.gz
 %{_mandir}/man1/MP42TS.1.gz
 %{_mandir}/man1/MP4Box.1.gz
 %{_mandir}/man1/MP4Client.1.gz
@@ -155,6 +157,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/libgpac.so
 
 %changelog
+* Sat May 06 2017 Simone Caronni <negativo17@gmail.com> - 1:0.7.1-1
+- Update to 0.7.1.
+
 * Wed Nov 09 2016 Simone Caronni <negativo17@gmail.com> - 1:0.6.1-4
 - Rebuild for FFmpeg update.
 

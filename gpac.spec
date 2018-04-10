@@ -7,7 +7,7 @@
 
 Name:       gpac
 Version:    0.7.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -157,6 +157,9 @@ rm -f %{buildroot}%{_mandir}/man1/DashCast.*
 %{_libdir}/libgpac.so
 
 %changelog
+* Tue Apr 10 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.1-2
+- Rebuild for updated dependencies.
+
 * Sat May 06 2017 Simone Caronni <negativo17@gmail.com> - 1:0.7.1-1
 - Update to 0.7.1.
 

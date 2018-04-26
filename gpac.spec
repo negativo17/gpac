@@ -1,3 +1,7 @@
+%global commit0 07f44028ba045706db81caa48cb213fd5acf4b1e
+%global date 20180426
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+
 # AMR Narrow Band Fixed
 %global ver_nb_fixed d00
 # AMR Narrow Band
@@ -6,14 +10,14 @@
 %global ver_wb d10
 
 Name:       gpac
-Version:    0.7.1
-Release:    3%{?dist}
+Version:    0.7.2
+Release:    4.%{date}git%{shortcommit0}%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
 URL:        https://gpac.wp.mines-telecom.fr/
 
-Source0:    https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:    https://github.com/%{name}/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 Source1:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.073/26073-%{ver_nb_fixed}.zip
 Source2:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-%{ver_nb}.zip
 Source3:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.204/26204-%{ver_wb}.zip
@@ -34,18 +38,13 @@ BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel 
 BuildRequires:  libXv-devel
 BuildRequires:  libpng-devel >= 1.2.5
+BuildRequires:  openssl-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  SDL-devel
 BuildRequires:  wxGTK-devel
 BuildRequires:  xmlrpc-c-devel
 BuildRequires:  xvidcore-devel >= 1.0.0
 BuildRequires:  zlib-devel
-
-%if 0%{?fedora} >= 26 || 0%{?rhel} >= 8
-BuildRequires:      compat-openssl10-devel
-%else
-BuildRequires:      openssl-devel
-%endif
 
 %description
 GPAC is an Open Source multimedia framework. GPAC is used for research and
@@ -80,7 +79,7 @@ formats such as MP4.
 This package contains development libraries and files for gpac.
 
 %prep
-%setup -q -a1 -a2 -a3
+%setup -q -n %{name}-%{commit0} -a1 -a2 -a3
 %patch0 -p1
 
 # AMR Narrow Band Fixed
@@ -122,29 +121,30 @@ sed -i -e 's/-O3//g' configure
     --verbose \
     --X11-path=%{_prefix}
 
-make %{?_smp_mflags}
+%make_build
 
 %install
 make DESTDIR=%{buildroot} install install-lib INSTFLAGS="-p"
 find %{buildroot} -name "*.a" -delete
-rm -f %{buildroot}%{_mandir}/man1/DashCast.*
+rm -fr %{buildroot}%{_includedir}/win*
 
 %post libs -p /sbin/ldconfig
 
 %postun libs -p /sbin/ldconfig
 
 %files
+%{_bindir}/DashCast
 %{_bindir}/MP42TS
 %{_bindir}/MP4Box
 %{_bindir}/MP4Client
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/DashCast.1.gz
 %{_mandir}/man1/MP42TS.1.gz
 %{_mandir}/man1/MP4Box.1.gz
 %{_mandir}/man1/MP4Client.1.gz
 
 %files libs
-%{!?_licensedir:%global license %%doc}
 %license COPYING
 %doc AUTHORS BUGS Changelog
 %{_libdir}/%{name}
@@ -157,6 +157,9 @@ rm -f %{buildroot}%{_mandir}/man1/DashCast.*
 %{_libdir}/libgpac.so
 
 %changelog
+* Thu Apr 26 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-4.20180426git07f4402
+- Update to 0.7.2 snapshot.
+
 * Thu Apr 26 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.1-3
 - Rebuild for updated dependencies.
 

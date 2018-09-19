@@ -1,5 +1,5 @@
-%global commit0 07f44028ba045706db81caa48cb213fd5acf4b1e
-%global date 20180426
+%global commit0 2bac32cd96c54fbcd9f88c5d6a3c2965738efd28
+%global date 20180918
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # AMR Narrow Band Fixed
@@ -11,7 +11,7 @@
 
 Name:       gpac
 Version:    0.7.2
-Release:    4.%{date}git%{shortcommit0}%{?dist}
+Release:    5.%{date}git%{shortcommit0}%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -22,13 +22,12 @@ Source1:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.073/26073-%{ver_n
 Source2:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-%{ver_nb}.zip
 Source3:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.204/26204-%{ver_wb}.zip
 
-Patch0:     %{name}-0.6.1-manpages.patch
+Patch0:     %{name}-0.7.2-manpages.patch
 
 BuildRequires:  a52dec-devel
 BuildRequires:  doxygen
 BuildRequires:  faad2-devel
-BuildRequires:  ffmpeg-devel
-BuildRequires:  freetype-devel >= 2.1.4
+BuildRequires:  gcc
 BuildRequires:  git
 #BuildRequires:  libGLU-devel
 BuildRequires:  libjpeg-devel
@@ -45,6 +44,15 @@ BuildRequires:  wxGTK-devel
 BuildRequires:  xmlrpc-c-devel
 BuildRequires:  xvidcore-devel >= 1.0.0
 BuildRequires:  zlib-devel
+
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(libavcodec)
+BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libavformat)
+BuildRequires:  pkgconfig(libavutil)
+#BuildRequires:  pkgconfig(libfreenect)
+BuildRequires:  pkgconfig(libswresample)
+BuildRequires:  pkgconfig(libswscale)
 
 %description
 GPAC is an Open Source multimedia framework. GPAC is used for research and
@@ -157,6 +165,9 @@ rm -fr %{buildroot}%{_includedir}/win*
 %{_libdir}/libgpac.so
 
 %changelog
+* Wed Sep 19 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-5.20180918git2bac32c
+- Update to latest snapshot.
+
 * Thu Apr 26 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-4.20180426git07f4402
 - Update to 0.7.2 snapshot.
 

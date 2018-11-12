@@ -1,5 +1,5 @@
-%global commit0 2bac32cd96c54fbcd9f88c5d6a3c2965738efd28
-%global date 20180918
+%global commit0 15e294f92d3746efa4dbddb8603ffa35e8f87131
+%global date 20181108
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # AMR Narrow Band Fixed
@@ -11,7 +11,7 @@
 
 Name:       gpac
 Version:    0.7.2
-Release:    5.%{date}git%{shortcommit0}%{?dist}
+Release:    6.%{date}git%{shortcommit0}%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -165,6 +165,9 @@ rm -fr %{buildroot}%{_includedir}/win*
 %{_libdir}/libgpac.so
 
 %changelog
+* Mon Nov 12 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-6.20181108git15e294f
+- Update to latest snapshot.
+
 * Wed Sep 19 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-5.20180918git2bac32c
 - Update to latest snapshot.
 

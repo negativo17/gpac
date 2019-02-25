@@ -11,7 +11,7 @@
 
 Name:       gpac
 Version:    0.7.2
-Release:    6.%{date}git%{shortcommit0}%{?dist}
+Release:    7.%{date}git%{shortcommit0}%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
@@ -40,7 +40,6 @@ BuildRequires:  libpng-devel >= 1.2.5
 BuildRequires:  openssl-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  SDL-devel
-BuildRequires:  wxGTK-devel
 BuildRequires:  xmlrpc-c-devel
 BuildRequires:  xvidcore-devel >= 1.0.0
 BuildRequires:  zlib-devel
@@ -118,6 +117,7 @@ sed -i -e 's/-O3//g' configure
 # --enable-amr-fixed
 %configure \
     --disable-oss-audio \
+    --disable-wx \
     --enable-amr \
     --enable-pic \
     --enable-pulseaudio \
@@ -165,6 +165,9 @@ rm -fr %{buildroot}%{_includedir}/win*
 %{_libdir}/libgpac.so
 
 %changelog
+* Mon Feb 25 2019 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-7.20181108git15e294f
+- Disable WX Widgets support.
+
 * Mon Nov 12 2018 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-6.20181108git15e294f
 - Update to latest snapshot.
 

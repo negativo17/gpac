@@ -1,5 +1,5 @@
-%global commit0 15e294f92d3746efa4dbddb8603ffa35e8f87131
-%global date 20181108
+%global commit0 8b9f0654689ce5b99e459ec8a954ba2573a4d957
+%global date 20190207
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # AMR Narrow Band Fixed
@@ -11,13 +11,13 @@
 
 Name:       gpac
 Version:    0.7.2
-Release:    7.%{date}git%{shortcommit0}%{?dist}
+Release:    8.%{date}git%{shortcommit0}%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
 URL:        https://gpac.wp.mines-telecom.fr/
 
-Source0:    https://github.com/%{name}/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0:    https://github.com/%{name}/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 Source1:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.073/26073-%{ver_nb_fixed}.zip
 Source2:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-%{ver_nb}.zip
 Source3:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.204/26204-%{ver_wb}.zip
@@ -136,9 +136,7 @@ make DESTDIR=%{buildroot} install install-lib INSTFLAGS="-p"
 find %{buildroot} -name "*.a" -delete
 rm -fr %{buildroot}%{_includedir}/win*
 
-%post libs -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
+%ldconfig_scriptlets libs
 
 %files
 %{_bindir}/DashCast
@@ -165,6 +163,9 @@ rm -fr %{buildroot}%{_includedir}/win*
 %{_libdir}/libgpac.so
 
 %changelog
+* Tue Feb 26 2019 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-8.20190207git8b9f065
+- Update to latest snapshot.
+
 * Mon Feb 25 2019 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-7.20181108git15e294f
 - Disable WX Widgets support.
 

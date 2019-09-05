@@ -1,7 +1,3 @@
-%global commit0 8b9f0654689ce5b99e459ec8a954ba2573a4d957
-%global date 20190207
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 # AMR Narrow Band Fixed
 %global ver_nb_fixed d00
 # AMR Narrow Band
@@ -10,19 +6,19 @@
 %global ver_wb d10
 
 Name:       gpac
-Version:    0.7.2
-Release:    8.%{date}git%{shortcommit0}%{?dist}
+Version:    0.8.0
+Release:    1%{?dist}
 Epoch:      1
 Summary:    Open Source multimedia framework
 License:    LGPLv2+
 URL:        https://gpac.wp.mines-telecom.fr/
 
-Source0:    https://github.com/%{name}/%{name}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+Source0:    https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.073/26073-%{ver_nb_fixed}.zip
 Source2:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.104/26104-%{ver_nb}.zip
 Source3:    http://www.3gpp.org/ftp/Specs/archive/26_series/26.204/26204-%{ver_wb}.zip
 
-Patch0:     %{name}-0.7.2-manpages.patch
+Patch0:     %{name}-0.8.0-manpages.patch
 
 BuildRequires:  a52dec-devel
 BuildRequires:  doxygen
@@ -37,11 +33,13 @@ BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel 
 BuildRequires:  libXv-devel
 BuildRequires:  libpng-devel >= 1.2.5
+BuildRequires:  openjpeg-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  SDL-devel
 BuildRequires:  xmlrpc-c-devel
 BuildRequires:  xvidcore-devel >= 1.0.0
+BuildRequires:  xz-devel
 BuildRequires:  zlib-devel
 
 BuildRequires:  pkgconfig(freetype2)
@@ -86,7 +84,7 @@ formats such as MP4.
 This package contains development libraries and files for gpac.
 
 %prep
-%setup -q -n %{name}-%{commit0} -a1 -a2 -a3
+%setup -q -a1 -a2 -a3
 %patch0 -p1
 
 # AMR Narrow Band Fixed
@@ -126,6 +124,12 @@ sed -i -e 's/-O3//g' configure
     --enable-depth \
     --extra-cflags="%{optflags}" \
     --libdir=%{_lib} \
+    --use-zlib=system \
+    --use-ogg=system \
+    --use-vorbis=system \
+    --use-theora=system \
+    --use-openjpeg=system \
+    --use-a52=system \
     --verbose \
     --X11-path=%{_prefix}
 
@@ -163,6 +167,9 @@ rm -fr %{buildroot}%{_includedir}/win*
 %{_libdir}/libgpac.so
 
 %changelog
+* Wed Sep 04 2019 Simone Caronni <negativo17@gmail.com> - 1:0.8.0-1
+- Update to 0.8.0.
+
 * Tue Feb 26 2019 Simone Caronni <negativo17@gmail.com> - 1:0.7.2-8.20190207git8b9f065
 - Update to latest snapshot.
 
